@@ -1,6 +1,7 @@
 import random
 import string
 import stripe
+import urllib.parse
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -396,6 +397,20 @@ class OrderSummaryView(LoginRequiredMixin, View):
         except ObjectDoesNotExist:
             messages.warning(self.request, "You do not have an active order")
             return redirect("/")
+
+def send_message(request):
+    order = Order.objects.get(user=request.user, ordered=False)
+    total = order.get_total() # calculamos el total del pedido
+    message = f'Hola, estoy armando mi carrito. Contiene estos artículos y ¿están disponibles los siguientes artículos? antes de realizar la compra.%0A%0A'
+    for item in order.items.all():
+        if item.item.discount_price:
+            message += f'{item.quantity} x {item.item.title} (Precio: ${item.item.discount_price})%0A'
+        else:
+            message += f'{item.quantity} x {item.item.title} (Precio: ${item.item.price})%0A'
+    message += f'%0ATotal del pedido: ${total}%0A' # incluimos el total en el mensaje
+    message += f'%0AGracias.'
+    url = f"https://api.whatsapp.com/send?phone=+593968030358&text={message}"
+    return redirect(url)
 
 
 class ItemDetailView(DetailView):
