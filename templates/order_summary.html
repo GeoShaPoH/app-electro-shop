@@ -30,7 +30,7 @@
             <td>
             {% if order_item.item.discount_price %}
                 ${{ order_item.get_total_discount_item_price }}
-                <span class="badge badge-primary">Saving ${{ order_item.get_amount_saved }}</span>
+                <span class="badge badge-primary">Ahorro ${{ order_item.get_amount_saved }}</span>
             {% else %}
                 ${{ order_item.get_total_item_price }}
             {% endif %}
@@ -41,29 +41,29 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan='5'>Your cart is empty</td>
+            <td colspan='5'>Tu carrito esta vacío</td>
         </tr>
         <tr>
             <td colspan="5">
-            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            <a class='btn btn-primary float-right' href='/'>Seguir comprando</a>
             </td>
         </tr>
         {% endfor %}
         {% if object.coupon %}
         <tr>
-            <td colspan="4"><b>Coupon</b></td>
+            <td colspan="4"><b>Cupón</b></td>
             <td><b>-${{ object.coupon.amount }}</b></td>
         </tr>
         {% endif %}
         {% if object.get_total %}
         <tr>
-            <td colspan="4"><b>Order Total</b></td>
+            <td colspan="4"><b>Total del pedido</b></td>
             <td><b>${{ object.get_total }}</b></td>
         </tr>
         <tr>
             <td colspan="5">
-            <a class='btn btn-warning float-right ml-2' href='/checkout/'>Proceed to checkout</a>
-            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            <a class='btn btn-warning float-right ml-2' href='/checkout/'>Pasar por la caja</a>
+            <a class='btn btn-primary float-right' href='/'>Seguir comprando</a>
             </td>
         </tr>
         {% endif %}

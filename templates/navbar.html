@@ -18,7 +18,7 @@
         <div style="position: relative; top: 0; right: 0;">
           <form class="form-inline">
             <div class="md-form my-0 w-100">
-              <input class="form-control mr-sm-2 w-100" type="text" placeholder="Search" aria-label="Search">
+              <input class="form-control mr-sm-2 w-100" type="text" placeholder="Buscar" aria-label="Search">
             </div>
           </form>
         </div>
@@ -75,12 +75,12 @@
             <a href="{% url 'core:order-summary' %}" class="nav-link waves-effect">
               <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>
               <i class="fas fa-shopping-cart"></i>
-              <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+              <span class="clearfix d-none d-sm-inline-block"> Carrito </span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
-              <span class="clearfix d-none d-sm-inline-block"> Logout </span>
+              <span class="clearfix d-none d-sm-inline-block"> Cerrar sesión </span>
             </a>
           </li>
           {% else %}
