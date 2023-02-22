@@ -370,7 +370,7 @@ class HomeViewSE(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q', '')
         if query:
-            queryset = Item.objects.filter(title__icontains=query)
+            queryset = Item.objects.filter(title__icontains=query,category='SE')
         else:
             queryset = Item.objects.filter(category='SE')
         return queryset
@@ -382,7 +382,7 @@ class HomeViewM(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q', '')
         if query:
-            queryset = Item.objects.filter(title__icontains=query)
+            queryset = Item.objects.filter(title__icontains=query,category='M')
         else:
             queryset = Item.objects.filter(category='M')
         return queryset
@@ -394,7 +394,7 @@ class HomeViewCA(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q', '')
         if query:
-            queryset = Item.objects.filter(title__icontains=query)
+            queryset = Item.objects.filter(title__icontains=query,category='CA')
         else:
             queryset = Item.objects.filter(category='CA')
         return queryset
@@ -406,7 +406,7 @@ class HomeViewCN(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q', '')
         if query:
-            queryset = Item.objects.filter(title__icontains=query)
+            queryset = Item.objects.filter(title__icontains=query,category='CN')
         else:
             queryset = Item.objects.filter(category='CN')
         return queryset
@@ -418,7 +418,7 @@ class HomeViewFBPCBS(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q', '')
         if query:
-            queryset = Item.objects.filter(title__icontains=query)
+            queryset = Item.objects.filter(title__icontains=query,category='FBPCBS')
         else:
             queryset = Item.objects.filter(category='FBPCBS')
         return queryset
@@ -431,6 +431,7 @@ class SearchResultsView(ListView):
         if query:
             queryset = Item.objects.filter(title__icontains=query)
         return queryset
+
 class OrderSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
