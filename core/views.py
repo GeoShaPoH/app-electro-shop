@@ -2,6 +2,7 @@ import random
 import string
 import stripe
 import urllib.parse
+from django.shortcuts import redirect
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -14,6 +15,8 @@ from django.views.generic import ListView, DetailView, View
 
 from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm
 from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, UserProfile
+
+from django.db.models import Q
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -349,43 +352,85 @@ class HomeView(ListView):
     model = Item
     paginate_by = 10
     template_name = "home.html"
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        if query:
+            queryset = Item.objects.filter(title__icontains=query)
+        else:
+            queryset = Item.objects.all()
+        return queryset
+
+
 
 
 class HomeViewSE(ListView):
     model = Item
-    queryset = Item.objects.filter(category='SE')
     paginate_by = 10
     template_name = "home.html"
-
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        if query:
+            queryset = Item.objects.filter(title__icontains=query)
+        else:
+            queryset = Item.objects.filter(category='SE')
+        return queryset
 
 class HomeViewM(ListView):
     model = Item
-    queryset = Item.objects.filter(category='M')
     paginate_by = 10
     template_name = "home.html"
-
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        if query:
+            queryset = Item.objects.filter(title__icontains=query)
+        else:
+            queryset = Item.objects.filter(category='M')
+        return queryset
 
 class HomeViewCA(ListView):
     model = Item
-    queryset = Item.objects.filter(category='CA')
     paginate_by = 10
     template_name = "home.html"
-
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        if query:
+            queryset = Item.objects.filter(title__icontains=query)
+        else:
+            queryset = Item.objects.filter(category='CA')
+        return queryset
 
 class HomeViewCN(ListView):
     model = Item
-    queryset = Item.objects.filter(category='CN')
     paginate_by = 10
     template_name = "home.html"
-
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        if query:
+            queryset = Item.objects.filter(title__icontains=query)
+        else:
+            queryset = Item.objects.filter(category='CN')
+        return queryset
 
 class HomeViewFBPCBS(ListView):
     model = Item
-    queryset = Item.objects.filter(category='FBPCBS')
     paginate_by = 10
     template_name = "home.html"
-
-
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        if query:
+            queryset = Item.objects.filter(title__icontains=query)
+        else:
+            queryset = Item.objects.filter(category='FBPCBS')
+        return queryset
+class SearchResultsView(ListView):
+    model = Item
+    paginate_by = 10
+    template_name = "home.html"
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            queryset = Item.objects.filter(title__icontains=query)
+        return queryset
 class OrderSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
